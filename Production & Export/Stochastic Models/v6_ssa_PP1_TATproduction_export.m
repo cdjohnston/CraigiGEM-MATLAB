@@ -147,14 +147,14 @@ figure(4);
         hold on
 
         for n=1:571
-                number_cells(n,1)= 9.1E14/var_PP1peri(n,1);
+                number_cells(n,1)= 1.21E15/var_PP1peri(n,1);
                 mass_cells(n,1) = number_cells(n,1)*9.5e-13;
         end
 
         plot(number_TatAconstructs,mass_cells,'LineWidth', 1,'Color', [0,0.329,0.651],'LineSmoothing','on')
 
         xlabel('Number of TatA Constructs','FontSize',14)
-        ylabel('Mass of Cells','FontSize',14)
+        ylabel('Mass of Cells (g)','FontSize',14)
         set(gca,'FontWeight','Bold','FontSize',12)
         grid on
 
