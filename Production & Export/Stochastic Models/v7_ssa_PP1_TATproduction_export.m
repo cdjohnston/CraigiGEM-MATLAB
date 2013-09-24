@@ -90,7 +90,7 @@ for k=15:300;
                     xlabel('Time (s)','FontSize',14)
                     ylabel('Number of PP1 in Cytoplasm','FontSize',14)
                     set(gca,'FontWeight','Bold','FontSize',12)
-                    axis([0 1200, 0 ,160])
+                    
 
             % figure(2) - PP1peri vs Time
 
@@ -112,7 +112,51 @@ for k=15:300;
                     xlabel('Time (s)','FontSize',14)
                     ylabel('Number of PP1 in Periplasm','FontSize',14)
                     set(gca,'FontWeight','Bold','FontSize',12)
-                    axis([0 1200, 0 ,260])
+                    
+           % figure(3) - Combined subplot
+           
+           figure(3)
+                   subplot(1,2,1)
+                                hold on
+                    
+                                if l==15;
+                                        plot(T,PP1cyto_Stochasticmean,'LineWidth', 1.5,'Color', [0.224,0.686,0.812],'LineSmoothing','on');
+                                end
+
+                                if l==30;
+                                        plot(T,PP1cyto_Stochasticmean,'LineWidth', 1.5,'Color', [0.922,0.235,0.545],'LineSmoothing','on');
+                                end
+
+                                remainder = rem(l,50);
+
+                                % plot result for each TatBC_number multiple of 50 
+                                if remainder==0 
+                                        v7_ssa_plot_PP1_TATproduction_export(l,T,PP1cyto_Stochasticmean)   
+                                end  
+
+                                xlabel('Time (s)','FontSize',14)
+                                ylabel('Number of PP1 in Cytoplasm','FontSize',14)
+                                set(gca,'FontWeight','Bold','FontSize',12)
+           
+                   subplot(1,2,2)
+                                hold on
+                    
+                                if l==15;
+                                        plot(T,PP1peri_Stochasticmean,'LineWidth', 1.5,'Color', [0.224,0.686,0.812],'LineSmoothing','on');
+                                end
+
+                                if l==30;
+                                        plot(T,PP1peri_Stochasticmean,'LineWidth', 1.5,'Color', [0.922,0.235,0.545],'LineSmoothing','on');
+                                end
+
+                                if remainder==0 
+                                        v7_ssa_plot_PP1_TATproduction_export(l,T,PP1peri_Stochasticmean)   
+                                end  
+
+                                xlabel('Time (s)','FontSize',14)
+                                ylabel('Number of PP1 in Periplasm','FontSize',14)
+                                set(gca,'FontWeight','Bold','FontSize',12)
+                   
     
 end
 
@@ -120,14 +164,17 @@ hleg = legend('15','30','50','100','150','200','250','300');
 htitle = get(hleg,'Title');
 set(htitle,'String','Number of TatB-C Complexes','FontWeight','Bold','FontSize',12)
 
-
+figure(2);
+hleg = legend('30','60','100','200','300','400','500','600');
+htitle = get(hleg,'Title');
+set(htitle,'String','Number of TatA Constructs','FontWeight','Bold','FontSize',12)
 
 
 %%%%%%%%%% Plots %%%%%%%%%%
 
-% figure(3) - TatBC vs PP1peri
+% figure(4) - TatBC vs PP1peri
 
-figure(3);
+figure(4);
         hold on
         
         plot(number_TatBC, var_PP1peri,'LineWidth', 1.5,'Color', [0,0.329,0.651],'LineSmoothing','on');
@@ -137,13 +184,9 @@ figure(3);
         set(gca,'FontWeight','Bold','FontSize',12)
         grid on
 
-        for p=1:15:286
-                    plot(number_TatBC(p),var_PP1peri(p,1),'--rs','MarkerEdgeColor','k','MarkerFaceColor',[1.000,0.525,0.365],'MarkerSize',10)
-        end
+% figure(5) - TatBC vs Mass of Cells
 
-% figure(4) - TatBC vs Mass of Cells
-
-figure(4);
+figure(5);
         hold on
 
         for n=1:286
@@ -157,8 +200,30 @@ figure(4);
         ylabel('Mass of Cells (g)','FontSize',14)
         set(gca,'FontWeight','Bold','FontSize',12)
         grid on
+        
+% figure(6) - Combined subplot    
 
-        for p=1:15:286
-                    plot(number_TatBC(p),mass_cells(p,1),'--rs','MarkerEdgeColor','k','MarkerFaceColor',[1.000,0.525,0.365],'MarkerSize',10)
-        end
+figure(6)
+        subplot(1,2,1)
+                    hold on
+
+                    plot(number_TatBC, var_PP1peri,'LineWidth', 1.5,'Color', [0,0.329,0.651],'LineSmoothing','on');
+
+                    xlabel('Number of TatB-C Complexes','FontSize',14)
+                    ylabel('Number of PP1 in Periplasm','FontSize',14)
+                    set(gca,'FontWeight','Bold','FontSize',12)
+                    grid on
+                    
+
+        subplot(1,2,2)
+                    hold on
+
+                    plot(number_TatBC,mass_cells,'LineWidth', 1.5,'Color', [0,0.329,0.651],'LineSmoothing','on')
+
+                    xlabel('Number of TatB-C Complexes','FontSize',14)
+                    ylabel('Mass of Cells (g)','FontSize',14)
+                    set(gca,'FontWeight','Bold','FontSize',12)
+                    grid on
+        
+
 

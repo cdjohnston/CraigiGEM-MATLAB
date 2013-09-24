@@ -55,9 +55,9 @@ for i=1:realisation_number
                     ylabel('Number of PP1 in Cytoplasm','FontSize',14)
                     set(gca,'FontWeight','Bold','FontSize',12)
                     grid on
-                    axis([0 1200, 0 ,250])
+                    axis([0 1200, 0 ,1800])
                     
-%            figure(2) - PP1peri vs Time    
+           % figure(2) - PP1peri vs Time    
 
            figure(2);
                     hold on
@@ -68,7 +68,32 @@ for i=1:realisation_number
                     ylabel('Number of PP1 in Periplasm','FontSize',14)
                     set(gca,'FontWeight','Bold','FontSize',12)
                     grid on
-                    axis([0 1200, 0 ,30])
+                    axis([0 1200, 0 ,250])
+                    
+         % figure(3) - Combined subplot            
+         figure(3);
+                  subplot(1,2,1)
+                        hold on
+
+                        plot(tnew,ynew,'Color', [0.808, 0.808, 0.808]);
+
+                        xlabel('Time (s)','FontSize',14)
+                        ylabel('Number of PP1 in Cytoplasm','FontSize',14)
+                        set(gca,'FontWeight','Bold','FontSize',12)
+                        grid on
+                        axis([0 1200, 0 ,1800])
+                        
+                   subplot(1,2,2)
+                        hold on
+
+                        plot(tnew,znew,'Color', [0.808, 0.808, 0.808]);
+
+                        xlabel('Time (s)','FontSize',14)
+                        ylabel('Number of PP1 in Periplasm','FontSize',14)
+                        set(gca,'FontWeight','Bold','FontSize',12)
+                        grid on
+                        axis([0 1200, 0 ,250])
+                        
 
 end
 
@@ -91,6 +116,12 @@ figure(1);
 
 figure(2);
         plot(T,PP1peri_Stochasticmean,'LineWidth',2,'LineSmoothing','on','Color', [0.224,0.686,0.812]);
+        
+ figure(3);
+        subplot(1,2,1)
+                plot(T,PP1cyto_Stochasticmean,'LineWidth', 2,'LineSmoothing','on','Color', [1,0.525,0.365]);
+        subplot(1,2,2) 
+                plot(T,PP1peri_Stochasticmean,'LineWidth',2,'LineSmoothing','on','Color', [0.224,0.686,0.812]);
 
 
 

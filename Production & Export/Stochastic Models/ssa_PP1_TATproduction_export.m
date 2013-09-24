@@ -1,18 +1,11 @@
-%%%%%%%% ssa_PP1_TATproduction_export.m
-%%%%%% Craig Johnston
-%
-% Implementation of the Stochastic Simulation Algorithm
-% (or Gillespie's algorithm) on the PP1 production & export system which
-% was developed by Dundee iGEM Modelling team.
-% There is an accompanying paper in SIAM Review, Education section.
-%
-% D J Higham, 2006.
-% 
-
 function[PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAconstruct_conc,TatBC_conc,j,PP1cyto,PP1peri)
 
-%%%% The function, ssa_PP1_TATproduction_export(TatAconstruct_conc,TatBC_conc,j,PP1cyto,PP1peri), 
-% uses Gillespie's algorithm to calculate numerically the Stochastic change 
+% % Implementation of the Stochastic Simulation Algorithm
+% (or Gillespie's algorithm) on the PP1 production & export system which
+% was developed by Dundee iGEM Modelling team.
+% D J Higham, 2006.
+
+% Uses Gillespie's algorithm to calculate numerically the Stochastic change 
 % in PP1cyto & PP1peri numbers, for the jth realisation and the given
 % TatAconstruct_conc and TatBC_conc input configuration. The change is 
 % based on our system over the selected time interval and the values are 
@@ -20,18 +13,25 @@ function[PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAco
 % The function passes additional plot data and these modified matrices,
 % PP1peri & PP1cyto, into programs calling it. 
 
-%%%% Inputs
-% TatAconstruct_conc, TatBC_conc and j are all single values
-% PP1cyto and PP1peri are 1200 x n matrices, where n is the selected realisation number
+% Inputs: 
+%      TatAconstruct_conc: TatAconstruct concentration
+%      TatBC_conc: TatBC complex concentration
+%      j: realisation number
+%      PP1cyto: matrix to store PP1cyto numbers for each time and realisation
+%      PP1peri: matrix to store PP1peri numbers for each time and realisation
+%
+% Outputs:
+%      PP1cyto: matrix with PP1cyto numbers for each time and realisation
+%      PP1peri: matrix with PP1peri numbers for each time and realisation
+%      T: uniform time vector for the time interval
+%      ynew: is the non-interpolated PP1cyto numbers
+%      znew: is the non-interpolated PP1peri numbers
+%      tnew: non-uniform time corresponding to reaction time for ynew, znew
+%
+% Usage:
+% [PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAconstruct_conc,TatBC_conc,j,PP1cyto,PP1peri); 
 
-
-%%%% Outputs
-% PP1cyto and PP1peri are 1200 x n matrices
-% T is a 1200 x 1 column vector
-% tnew,ynew and znew are all column vectors which vary in size with each
-% stochastic realisation
-
-
+% Written by Craig Johnston, 22nd July 2013
 
 % % % % % % % % % % % % % % % % % Parameters
 
@@ -54,29 +54,15 @@ vol = 1e-15;                                    % E.coli volume
 
 %%%%%%%%%%%%%%%%%%%%%%%% Deterministic rates
 
-KTl = (2.3E-9)/60;                              % PP1 transcription rate (M/s)
+KTl = (23E-9)/60;                               % PP1 transcription rate (M/s)
 Kmdeg = 0.462/60;                               % mRNA degradation constant (/s)
 KTc = 15/60;                                    % PP1 translation rate (/s)
 Kpdeg =0.355/60;                                % PP1 degradation constant (/s)    
 K1 = (4.8E5)/60;                                % PP1cyto & TatB-C recognition binding rate (/M.s)
 Kr1 = 0.08/60;                                  % PP1B-C unbinding rate (/s)
-K2 = (120E5)/(60);                              % Construct association rate /M/s 
+K2 = (120E6)/(60);                              % Construct association rate /M/s 
 Kr2 = 0.1/60;                                   % PP1export disassociation rate (/s)                                               
-K3 = 10;                                        % Export rate(/s)       
-
-
-% KTl = (23E-9)/60;                                % PP1 transcription rate (M/s)
-% Kmdeg = 0.462/60;                               % mRNA degradation constant (/s)
-% KTc = 150/60;                                    % PP1 translation rate (/s)
-% Kpdeg =0.462/60;                                % PP1 degradation constant (/s)         
-% K1 = (4.8E5)/60;                                % PP1cyto & TatB-C association rate (/M.s)
-% Kr1 = 0.1/60;                                   % PP1B-C disassociation rate (/s)
-% 
-% 
-% K2 = (10^4*6E4)/(60);                            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    % /M/s 
-% Kr2 = 0.1/60;                                   % PP1export disassociation rate (/s)                                               
-% K3 = 10;   
-
+K3 = 10;                                        % Export rate(/s)  
 
 %%%%%%%%%%%%%%%%%%%%%%%% Corresponding Stochastic rates
 c(1) = KTl*(nA*vol); 
@@ -166,3 +152,5 @@ znew=znew';
 
 PP1cyto(:,j) = interp1q(tnew,ynew,T);
 PP1peri(:,j) = interp1q(tnew,znew,T);
+
+end

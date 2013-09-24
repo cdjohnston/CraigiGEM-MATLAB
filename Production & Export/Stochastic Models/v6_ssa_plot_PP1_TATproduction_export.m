@@ -1,22 +1,20 @@
-%%%%%%%% v6_ssa_plot_PP1_TATproduction_export.m
-%%%%%% Craig Johnston
-%
- 
 function[] = v6_ssa_plot_PP1_TATproduction_export(l,T,PP1var)
 
-%%%% The function, v6_ssa_plot_PP1_TATproduction_export, 
-% plots the graph, T vs PP1var, in a colour depedning on the value
-% of l. 
+% Plots the graph, T vs PP1var, in a colour depedning on the value of l. 
 % l must be a multiple of 100 in the range [100,600] for plot
- 
-%%%% Inputs
-% T and PP1var are column vectors of the same size
-% l is a single value
 
+% Inputs: 
+%      l: loop number
+%      T: uniform time vector for the time interval
+%      PP1var: PP1 number vector
+%
+% Outputs:
+%      plots T vs PP1var
+%
+% Usage:
+% v6_ssa_plot_PP1_TATproduction_export(l,T,PP1var) 
 
-%%%% Outputs
-% plots T vs PP1var
-
+% Written by Craig Johnston, 5th August 2013
 
  switch l
 
@@ -36,3 +34,4 @@ function[] = v6_ssa_plot_PP1_TATproduction_export(l,T,PP1var)
             warning('Unexpected plot type. No plot created.');
                                         
  end
+end
