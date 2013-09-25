@@ -1,4 +1,4 @@
-function[PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAconstruct_conc,TatBC_conc,j,PP1cyto,PP1peri)
+function[PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAassembly_conc,TatBC_conc,j,PP1cyto,PP1peri)
 
 % % Implementation of the Stochastic Simulation Algorithm
 % (or Gillespie's algorithm) on the PP1 production & export system which
@@ -7,14 +7,14 @@ function[PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAco
 
 % Uses Gillespie's algorithm to calculate numerically the Stochastic change 
 % in PP1cyto & PP1peri numbers, for the jth realisation and the given
-% TatAconstruct_conc and TatBC_conc input configuration. The change is 
+% TatAassembly_conc and TatBC_conc input configuration. The change is 
 % based on our system over the selected time interval and the values are 
 % stored in the jth column of PP1cyto and PP1peri matrices respectively. 
 % The function passes additional plot data and these modified matrices,
 % PP1peri & PP1cyto, into programs calling it. 
 
 % Inputs: 
-%      TatAconstruct_conc: TatAconstruct concentration
+%      TatAassembly_conc: TatAassembly concentration
 %      TatBC_conc: TatBC complex concentration
 %      j: realisation number
 %      PP1cyto: matrix to store PP1cyto numbers for each time and realisation
@@ -29,7 +29,7 @@ function[PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAco
 %      tnew: non-uniform time corresponding to reaction time for ynew, znew
 %
 % Usage:
-% [PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAconstruct_conc,TatBC_conc,j,PP1cyto,PP1peri); 
+% [PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAassembly_conc,TatBC_conc,j,PP1cyto,PP1peri); 
 
 % Written by Craig Johnston, 22nd July 2013
 
@@ -56,13 +56,13 @@ vol = 1e-15;                                    % E.coli volume
 
 KTl = (23E-9)/60;                               % PP1 transcription rate (M/s)
 Kmdeg = 0.462/60;                               % mRNA degradation constant (/s)
-KTc = 15/60;                                    % PP1 translation rate (/s)
-Kpdeg =0.355/60;                                % PP1 degradation constant (/s)    
+KTc = 45/60;                                    % PP1 translation rate (/s)
+Kpdeg = 1.15/60;                                % PP1 degradation constant (/s    
 K1 = (4.8E5)/60;                                % PP1cyto & TatB-C recognition binding rate (/M.s)
 Kr1 = 0.08/60;                                  % PP1B-C unbinding rate (/s)
-K2 = (120E6)/(60);                              % Construct association rate /M/s 
+K2 = (120E6)/(60);                              % Assembly association rate /M/s 
 Kr2 = 0.1/60;                                   % PP1export disassociation rate (/s)                                               
-K3 = 10;                                        % Export rate(/s)  
+K3 = 10;                                        % Export rate(/s)    
 
 %%%%%%%%%%%%%%%%%%%%%%%% Corresponding Stochastic rates
 c(1) = KTl*(nA*vol); 
@@ -81,12 +81,12 @@ X = zeros(7,1);                                 % X(1) = mRNA
                                                 % X(2) = PP1cyto
                                                 % X(3) = TatB-C
                                                 % X(4) = PP1B-C
-                                                % X(5) = TatAconstruct
+                                                % X(5) = TatAassembly
                                                 % X(6) = PP1export
                                                 % X(7) = PP1peri
                                                 
 X(3) = round(TatBC_conc*nA*vol);                % number of TatB-C complexes
-X(5) = round(TatAconstruct_conc*nA*vol);        % number of TatA constructs
+X(5) = round(TatAassembly_conc*nA*vol);         % number of TatA assemblies
 
 
 
@@ -109,7 +109,6 @@ while t < tfinal
          a(7) = c(7)*X(4)*X(5);
          a(8) = c(8)*X(6);
          a(9) = c(9)*X(6);
-
 
          asum = sum(a);
          b = min(find(rand<cumsum(a/asum)));

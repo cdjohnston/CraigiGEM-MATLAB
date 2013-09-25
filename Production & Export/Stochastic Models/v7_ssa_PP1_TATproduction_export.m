@@ -6,7 +6,7 @@
 % the selected number of realisations of the PP1cyto & PP1peri production 
 % system
 %
-% The value of TatAconstruct_number is fixed and the value of TatBC_number
+% The value of TatAassembly_number is fixed and the value of TatBC_number
 % is looped over the range [15,45] for the selected number of realisations.
 % A selection of plots are output in the figures to visualise
 % the effect on PP1 production and export of increasing the number of
@@ -26,8 +26,8 @@ realisation_number = input('Enter the number of realisations ');
 nA = 6.023e23;                                % Avagadro's number
 vol = 1e-15;                                  % E.coli volume
      
-TatAconstruct_number = 30;                    % TatAconstruct is a construction of 20 TatA proteins
-TatAconstruct_conc = (TatAconstruct_number/nA) / vol; 
+TatAassembly_number = 30;                    % TatAassembly is an assembly of 20 TatA proteins
+TatAassembly_conc = (TatAassembly_number/nA) / vol; 
 
 % set up matrices to store results
 PP1cyto=zeros(1200,realisation_number);       % (cell division time, number of realisations)
@@ -39,7 +39,7 @@ mass_cells = zeros(286,1);
 
             
 number_TatBC= 15:300;
-number_TatBC=number_TatBC';                   % column vector of TatAconstruct numbers
+number_TatBC=number_TatBC';                   % column vector of TatAassembly numbers
 
 
 rand('state',100)
@@ -55,7 +55,7 @@ for k=15:300;
             for i=1:realisation_number
                 
                         j=i;
-                        [PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAconstruct_conc,TatBC_conc,j,PP1cyto,PP1peri);         
+                        [PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAassembly_conc,TatBC_conc,j,PP1cyto,PP1peri);         
             end
             
             % calculates Stochastic mean and stores the mean end value for each TatBC_number
@@ -165,9 +165,9 @@ htitle = get(hleg,'Title');
 set(htitle,'String','Number of TatB-C Complexes','FontWeight','Bold','FontSize',12)
 
 figure(2);
-hleg = legend('30','60','100','200','300','400','500','600');
+hleg = legend('15','30','50','100','150','200','250','300');
 htitle = get(hleg,'Title');
-set(htitle,'String','Number of TatA Constructs','FontWeight','Bold','FontSize',12)
+set(htitle,'String','Number of TatB-C Complexes','FontWeight','Bold','FontSize',12)
 
 
 %%%%%%%%%% Plots %%%%%%%%%%

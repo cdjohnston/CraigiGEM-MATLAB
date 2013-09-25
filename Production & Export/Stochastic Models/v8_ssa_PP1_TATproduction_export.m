@@ -6,12 +6,12 @@
 % the selected number of realisations of the PP1cyto & PP1peri production 
 % system
 %
-% The values of TatBC_number and TatAconstruct_number are looped 
+% The values of TatBC_number and TatAassembly_number are looped 
 % simultaneously over the ranges [15,45] and [30,90] respectively for the
 % selected number of realisations.
 % A selection of plots are output in the figures to visualise
 % the effect on PP1 production and export of increasing the number of TatBC
-%  and TatAconstructs at the same time .
+%  and TatAassemblies at the same time .
 %
 % The program also uses the plot function v6_ssa_plot_PP1_TATproduction_export.
 
@@ -37,10 +37,10 @@ number_cells = zeros(571,1);
 mass_cells = zeros(571,1);
 
 number_TatBC= 15:0.5:300;
-number_TatBC=number_TatBC';                   % column vector of TatAconstruct numbers
+number_TatBC=number_TatBC';                   % column vector of TatAassembly numbers
 
-number_TatAconstructs= 30:600;
-number_TatAconstructs=number_TatAconstructs'; % column vector of TatAconstruct numbers
+number_TatAassemblies= 30:600;
+number_TatAassemblies=number_TatAassemblies'; % column vector of TatAassembly numbers
 
 
 rand('state',100)
@@ -50,8 +50,8 @@ for k=30:600
 
             l=k;
             
-            TatAconstruct_number = k;         % TatAconstruct is a construction of 20 TatA proteins
-            TatAconstruct_conc = (TatAconstruct_number/nA) / vol; 
+            TatAassembly_number = k;         % TatAassembly is an assembly of 20 TatA proteins
+            TatAassembly_conc = (TatAassembly_number/nA) / vol; 
             
             m=l/2;
             
@@ -61,11 +61,11 @@ for k=30:600
             for i=1:realisation_number
                 
                         j=i;
-                        [PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAconstruct_conc,TatBC_conc,j,PP1cyto,PP1peri); 
+                        [PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAassembly_conc,TatBC_conc,j,PP1cyto,PP1peri); 
             end
 
             % calculates Stochastic mean and stores the mean end value for each 
-            % TatAconstruct_number TatBC_number configuration
+            % TatAassembly_number TatBC_number configuration
             PP1cyto_Stochasticmean = mean(PP1cyto,2);
             var_PP1cyto(l-29,1) =  mean(PP1cyto(1200,:));
 
@@ -89,7 +89,7 @@ for k=30:600
                     
                     remainder = rem(l,100);
                     
-                    % plot result for each TatAconstruct_number multiple of 100
+                    % plot result for each TatAassembly_number multiple of 100
                    
                     if remainder==0 
                             v6_ssa_plot_PP1_TATproduction_export(l,T,PP1cyto_Stochasticmean)   
@@ -137,7 +137,7 @@ for k=30:600
 
                                 remainder = rem(l,100);
 
-                                % plot result for each TatAconstruct_number multiple of 100
+                                % plot result for each TatAassembly_number multiple of 100
 
                                 if remainder==0 
                                         v6_ssa_plot_PP1_TATproduction_export(l,T,PP1cyto_Stochasticmean)   
@@ -170,14 +170,14 @@ for k=30:600
 
 end
 
-hleg = legend('15','30','50','100','150','200','250','300');
+hleg = legend('15:30','30:60','50:100','100:200','150:300','200:400','250:500','300:600');
 htitle = get(hleg,'Title');
-set(htitle,'String','Number of TatB-C Complexes','FontWeight','Bold','FontSize',12)
+set(htitle,'String','TatB-C Complexes:TatA Assemblies','FontWeight','Bold','FontSize',12)
 
 figure(2);
-hleg = legend('30','60','100','200','300','400','500','600');
+hleg = legend('15:30','30:60','50:100','100:200','150:300','200:400','250:500','300:600');
 htitle = get(hleg,'Title');
-set(htitle,'String','Number of TatA Constructs','FontWeight','Bold','FontSize',12)
+set(htitle,'String','TatB-C Complexes:TatA Assemblies','FontWeight','Bold','FontSize',12)
 
 
 %%%%%%%%%% Plots %%%%%%%%%%

@@ -16,10 +16,10 @@
 nA = 6.023e23;                                % Avagadro's number
 vol = 1e-15;                                  % E.coli volume
             
-TatAconstruct_number = 30;                    % TatAconstruct is a construction of 20 TatA proteins
+TatAassembly_number = 30;                    % TatAassembly is an assembly of 20 TatA proteins
 TatBC_number = 15;                            % TatBC is a complex of TatB and TatC proteins
 
-TatAconstruct_conc = (TatAconstruct_number/nA) / vol;               
+TatAassembly_conc = (TatAassembly_number/nA) / vol;               
 TatBC_conc = (TatBC_number/nA) / vol; 
 
  
@@ -28,14 +28,14 @@ TatBC_conc = (TatBC_number/nA) / vol;
 options = odeset('Refine',14,'AbsTol',1E-14, 'RelTol', 1E-12);
 
 
-[t, x] = ode45(@v2_odes_setup_PP1_TATproduction_export,[0,1200],[0,0,TatBC_conc,0,TatAconstruct_conc,0,0],options);
+[t, x] = ode45(@v2_odes_setup_PP1_TATproduction_export,[0,1200],[0,0,TatBC_conc,0,TatAassembly_conc,0,0],options);
 
 % [t, x] = ode45(calls in  v1_odes_solver_PP1_TATproduction_export,[time interval],[Initial Conditions]);
-% Initial Conditions = [mRNA] ,[PP1cyto],[TatB-C],[PP1B-C],[TatAconstruct],[PP1export],[PP1peri]]
+% Initial Conditions = [mRNA] ,[PP1cyto],[TatB-C],[PP1B-C],[TatAassembly],[PP1export],[PP1peri]]
 
 % ode45 is a function used to solve differential equations numerically 
 
-% x=[x(:,1),x(:,2),x(:,3),x(:,4),x(:,5),x(:,6),x(:,7)]=[[mRNA] ,[PP1cyto],[TatB-C],[PP1B-C],[TatAconstruct],[PP1export],[PP1peri]]
+% x=[x(:,1),x(:,2),x(:,3),x(:,4),x(:,5),x(:,6),x(:,7)]=[[mRNA] ,[PP1cyto],[TatB-C],[PP1B-C],[TatAassembly],[PP1export],[PP1peri]]
 % is a solution matrix of our variables
 % each variable is evaluated at discrete times dt, within the
 % given time interval.

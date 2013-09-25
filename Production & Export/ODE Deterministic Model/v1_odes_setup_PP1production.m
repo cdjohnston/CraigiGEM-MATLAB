@@ -22,8 +22,8 @@ function [dx_dt]= v1_odes_setup_PP1production(t,x)
 
 KTl = (23E-9)/60;                               % PP1 transcription rate (M/s)
 Kmdeg = 0.462/60;                               % mRNA degradation constant (/s)
-KTc = 15/60;                                    % PP1 translation rate (/s)
-Kpdeg =0.355/60;                                % PP1 degradation constant (/s)            
+KTc = 45/60;                                    % PP1 translation rate (/s)
+Kpdeg = 1.15/60;                                % PP1 degradation constant (/s)            
 
 
 % vector of variables                                              
@@ -36,7 +36,7 @@ Kpdeg =0.355/60;                                % PP1 degradation constant (/s)
       
 
 dx_dt(1) = KTl - Kmdeg*x(1);
-dx_dt(2) = KTc*x(1) - Kpdeg*x(2)
+dx_dt(2) = KTc*x(1) - Kpdeg*x(2);
 
 
 % dx_dt is a column vector of ODES

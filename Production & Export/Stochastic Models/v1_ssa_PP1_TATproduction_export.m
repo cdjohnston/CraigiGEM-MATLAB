@@ -6,7 +6,7 @@
 % realisations and the resulting Stochastic mean of the production and export
 % of PP1cyto & PP1peri.
 % 
-% The values of TatAconstruct_number and TatBC_number are fixed and the
+% The values of TatAassembly_number and TatBC_number are fixed and the
 % realisation_number controls the number of realisations output.
 
 clear
@@ -21,10 +21,10 @@ realisation_number = input('Enter the number of realisations ');
 nA = 6.023e23;                                % Avagadro's number
 vol = 1e-15;                                  % E.coli volume
             
-TatAconstruct_number = 30;                    % TatAconstruct is a construction of 20 TatA proteins
+TatAassembly_number = 30;                    % TatAassembly is an assembly of 20 TatA proteins
 TatBC_number = 15;                            % TatBC is a complex of TatB and TatC proteins
 
-TatAconstruct_conc = (TatAconstruct_number/nA) / vol;               
+TatAassembly_conc = (TatAassembly_number/nA) / vol;               
 TatBC_conc = (TatBC_number/nA) / vol; 
 
 
@@ -40,7 +40,7 @@ for i=1:realisation_number
     
             j=i;
             
-            [PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAconstruct_conc,TatBC_conc,j,PP1cyto,PP1peri);
+            [PP1cyto,PP1peri,T,tnew,ynew,znew] = ssa_PP1_TATproduction_export(TatAassembly_conc,TatBC_conc,j,PP1cyto,PP1peri);
             
             %%%%%%%%%% Plots %%%%%%%%%%
             
@@ -55,7 +55,7 @@ for i=1:realisation_number
                     ylabel('Number of PP1 in Cytoplasm','FontSize',14)
                     set(gca,'FontWeight','Bold','FontSize',12)
                     grid on
-                    axis([0 1200, 0 ,1800])
+                    axis([0 1200, 0 ,2000])
                     
            % figure(2) - PP1peri vs Time    
 
@@ -81,7 +81,7 @@ for i=1:realisation_number
                         ylabel('Number of PP1 in Cytoplasm','FontSize',14)
                         set(gca,'FontWeight','Bold','FontSize',12)
                         grid on
-                        axis([0 1200, 0 ,1800])
+                        axis([0 1200, 0 ,2000])
                         
                    subplot(1,2,2)
                         hold on

@@ -2,7 +2,7 @@ function [dx_dt]= v1_odes_setup_PP1_TATproduction_export(t,x)
 
 % Sets up an ODE system, based on the PP1 production system, with
 % t=time & x which is a vector of variables:
-% x=[x(1),x(2),x(3),x(4),x(5),x(6),x(7)]=[[mRNA],[PP1cyto],[TatB-C],[PP1B-C],[TatAconstruct],[PP1export],[PP1peri]]
+% x=[x(1),x(2),x(3),x(4),x(5),x(6),x(7)]=[[mRNA],[PP1cyto],[TatB-C],[PP1B-C],[TatAassembly],[PP1export],[PP1peri]]
 
 % Inputs: 
 %      t: time variable
@@ -21,11 +21,11 @@ function [dx_dt]= v1_odes_setup_PP1_TATproduction_export(t,x)
 
 KTl = (23E-9)/60;                               % PP1 transcription rate (M/s)
 Kmdeg = 0.462/60;                               % mRNA degradation constant (/s)
-KTc = 15/60;                                    % PP1 translation rate (/s)
-Kpdeg =0.355/60;                                % PP1 degradation constant (/s)    
+KTc = 45/60;                                    % PP1 translation rate (/s)
+Kpdeg = 1.15/60;                                % PP1 degradation constant (/s    
 K1 = (4.8E5)/60;                                % PP1cyto & TatB-C recognition binding rate (/M.s)
 Kr1 = 0.08/60;                                  % PP1B-C unbinding rate (/s)
-K2 = (120E6)/(60);                              % Construct association rate /M/s 
+K2 = (120E6)/(60);                              % Assembly association rate /M/s 
 Kr2 = 0.1/60;                                   % PP1export disassociation rate (/s)                                               
 K3 = 10;                                        % Export rate(/s)    
 
@@ -35,7 +35,7 @@ K3 = 10;                                        % Export rate(/s)
 % x(2) = [PP1cyto]
 % x(3) = [TatB-C]
 % x(4) = [PP1B-C]
-% x(5) = [TatAconstruct]
+% x(5) = [TatAassembly]
 % x(6) = [PP1export]
 % x(7) = [PP1peri]
 

@@ -73,6 +73,7 @@ figure(1);
         xlabel('Time (s) ','FontSize',16)
         ylabel('Concentration ','FontSize',16)
         grid on
+        axis([0 1200 0 2.5])
         set(gcf, 'renderer', 'opengl')
 
             
@@ -101,6 +102,7 @@ figure(3)
                 xlabel('Time (s) ','FontSize',16)
                 ylabel('Concentration ','FontSize',16)
                 grid on
+                axis([0 1200 0 2.5])
                 set(gcf, 'renderer', 'opengl')
 
 
